@@ -1,0 +1,19 @@
+{
+  "name": "xogame-back",
+  "version": "1.0.0",
+  "description": "Backend of simple noughts and crosses game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssuvanto/xogame-back.git"
+  },
+  "author": "Samu Suvanto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssuvanto/xogame-back/issues"
+  },
+  "homepage": "https://github.com/ssuvanto/xogame-back#readme"
+}

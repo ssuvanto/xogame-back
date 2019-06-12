@@ -5,6 +5,6 @@ import { getGameState } from './game'
 
 export const apiRouter = Router()
 
-apiRouter.get('/', hello)
+apiRouter.put('/', hello)
 
 apiRouter.get('/games/:id', getGameState)

@@ -4,6 +4,7 @@ import * as sockjs from 'sockjs'
 import * as http from 'http'
 
 import { apiRouter } from './api/api'
+import { addMarkMsg } from './gamelogic'
 
 const mongo = new MongoClient('mongodb://172.17.0.2:27017')
 export let db = null
@@ -27,7 +28,19 @@ const sock = sockjs.createServer({sockjs_url: 'http://cdn.jsdelivr.net/sockjs/1.
 sock.on('connection', c => {
     c.on('data', m => {
         console.log(m)
-        c.write('You said: '+m)
+        m = JSON.parse(m)
+        switch(m.type){
+            case 'echo':
+                console.log('echo')
+                c.write(JSON.stringify({type: 'echo', data: 'Echo: '+m.data}))
+                break
+            case 'mark':
+                console.log('mark')
+                addMarkMsg(m.data, (res) => {c.write(JSON.stringify(res))})
+                break
+            default:
+                console.log('Message with unknown type')
+        }
     })
 })
 

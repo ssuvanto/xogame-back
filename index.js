@@ -15,7 +15,35 @@ mongo.connect(err => {
     }
     console.log('Connected to mongoDB!')
     db = mongo.db('mytestdb')
+
+    //generate a few placeholder test games
+    createGames()
 })
+
+async function createGames() {
+    const find = await db.collection('games').find({}).toArray()
+    if(find.length === 0){
+        console.log('No games yet, make them')
+        const empty = []
+        for(let i=0;i<100;i++){
+            empty[i] = []
+            for(let j=0;j<100;j++){
+                empty[i][j] = 0
+            }
+        }
+        const docs = []
+        for(let i=0;i<10;i++){
+            docs.push({gameid: i, state: empty})
+        }
+        db.collection('games').insertMany(docs, (err, res) => {
+            if(!err){
+                console.log('Inserted documents')
+            }
+        })
+    } else {
+        console.log('Games collection already has stuff, dont make games')
+    }
+}
 
 const app = express()
 //Start server

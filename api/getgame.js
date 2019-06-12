@@ -1,11 +1,9 @@
-export const getGameState = (req, res) => {
-    //for now generate fake game state based on game id (populate nth row)
-    const tempState = new Array(100)
-    for(let x=0;x<tempState.length;x++){
-        tempState[x] = new Array(100).fill(0)
-        tempState[x][parseInt(req.params.id) + 50] = 1
-    }
+import { db } from '../index'
 
-    res.send({state: tempState})
+export const getGameState = async(req, res) => {
+    //get game from database by gameid
+    const state = await db.collection('games').findOne({gameid: parseInt(req.params.id)})
+
+    res.send({state: state})
     res.end()
 }

@@ -27,7 +27,7 @@ const sock = sockjs.createServer({sockjs_url: 'http://cdn.jsdelivr.net/sockjs/1.
 sock.on('connection', c => {
     c.on('data', m => {
         console.log(m)
-        c.write('testing123')
+        c.write('You said: '+m)
     })
 })
 

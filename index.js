@@ -4,7 +4,7 @@ import * as sockjs from 'sockjs'
 import * as http from 'http'
 
 import { apiRouter } from './api/api'
-import { addMarkMsg } from './gamelogic'
+import { addMarkMsg, populateGameInfo } from './gamelogic'
 
 const mongo = new MongoClient('mongodb://172.17.0.2:27017')
 export let db = null
@@ -42,11 +42,12 @@ async function createGames() {
                 }
                 state.push(copy)
             }
-            docs.push({gameid: i, state: state})
+            docs.push({gameid: i, next_player: 'x', state: state})
         }
         db.collection('games').insertMany(docs, (err, res) => {
             if(!err){
                 console.log('Inserted documents')
+                populateGameInfo()
             }
         })
     } else {

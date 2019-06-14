@@ -9,12 +9,16 @@ export const addMarkMsg = (data, res) => {
 }
 
 export const populateGameInfo = async() => {
-    gameInfo = await db.collection('games').find({}, {projection: {gameid: true, next_player: true}}).toArray()
+    gameInfo = await db.collection('games').find({}, {projection: {
+        gameid: true, 
+        next_player: true,
+        player_ids: true
+    }}).toArray()
     console.log(gameInfo)
 }
 
 async function addMarkToDBGame(gameid, x, y) {
-    const key = 'state.'+x+'.'+y
+    const key = 'board.'+x+'.'+y
     const res = await db.collection('games').updateOne({gameid: gameid}, {$set: {[key]: 1}})
     console.log('Updated',res.modifiedCount,'document(s)')
 }

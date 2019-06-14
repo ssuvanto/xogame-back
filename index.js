@@ -17,7 +17,9 @@ mongo.connect(err => {
     db = mongo.db('xogame')
 
     //generate a few placeholder test games
-    createGames()
+    createGames().then(() => {
+        populateGameInfo()
+    })
 })
 
 async function createGames() {
@@ -34,20 +36,19 @@ async function createGames() {
         const docs = []
         for(let i=0;i<10;i++){
             //make the games a little bit different each
-            const state = []
+            const board = []
             for(let j=0;j<empty.length;j++){
                 const copy = empty[j].slice()
                 if(j === i+50){
                     copy.fill(1)
                 }
-                state.push(copy)
+                board.push(copy)
             }
-            docs.push({gameid: i, next_player: 'x', state: state})
+            docs.push({gameid: i, player_ids: {x: 0, o: 1}, next_player: 'x', board: board})
         }
         db.collection('games').insertMany(docs, (err, res) => {
             if(!err){
                 console.log('Inserted documents')
-                populateGameInfo()
             }
         })
     } else {

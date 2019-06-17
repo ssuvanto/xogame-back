@@ -2,9 +2,12 @@ import { Router } from 'express'
 
 import { hello } from './hello'
 import { getGameState } from './getgame'
+import { login, check } from './login'
 
 export const apiRouter = Router()
 
-apiRouter.put('/', hello)
+apiRouter.put('/', hello) //testing
 
-apiRouter.get('/games/:id', getGameState)
+apiRouter.post('/login', login)
+
+apiRouter.get('/games/:id', check, getGameState)

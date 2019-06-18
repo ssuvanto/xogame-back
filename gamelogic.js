@@ -1,6 +1,6 @@
 import { db } from './index'
 
-let gameInfo = []
+export let gameInfo = []
 
 export const addMarkMsg = (data, res) => {
     console.log('Adding mark to ' + data.x + ', ' + data.y)

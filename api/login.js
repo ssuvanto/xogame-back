@@ -1,21 +1,4 @@
-const token = 'xogameauthorizationtoken'
-//simple fixed array of users for now
-const users = [{
-    id: 0,
-    uname: 'Tester',
-    pword: 'testpw',
-    token: 'user0token'
-},{
-    id: 1,
-    uname: 'Usertest',
-    pword: 'pwtesting',
-    token: 'user1token'
-},{
-    id: 2,
-    uname: 'Retset',
-    pword: 'wptset',
-    token: 'user2token'
-}]
+import { users } from '../users'
 
 export const login = (req, res) => {
     //test with single user for now and without any authentication
@@ -23,6 +6,7 @@ export const login = (req, res) => {
     for(let u of users){
         if(u.uname === req.body.uname && u.pword === req.body.pword){
             token = u.token
+            break
         }
     }
     if(token){
@@ -35,15 +19,4 @@ export const login = (req, res) => {
         res.send({error: 'Incorrect username or password'})
     }
     res.end()
-}
-
-export const check = (req, res, next) => {
-    console.log('Checking token...')
-    if(req.get('token') === token){
-        console.log('Success, next')
-        next()
-    } else {
-        console.log('Fail, 403')
-        res.sendStatus(403)
-    }
 }

@@ -20,7 +20,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.2.7",
-    "sockjs": "^0.3.19"
+    "sockjs": "^0.3.20"
   },
   "devDependencies": {
     "esm": "^3.2.25",
